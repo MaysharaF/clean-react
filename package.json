@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "test:staged": "npm test -- --findRelatedTests",
-    "test:ci": "npm test -- --coverage"
+    "test:staged": "npm test -- --findRelatedTests --passWithNoTests",
+    "test:ci": "npm test -- --coverage --passWithNoTests"
   },
   "devDependencies": {
     "@cypress/webpack-preprocessor": "^5.4.1",
