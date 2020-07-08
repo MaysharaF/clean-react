@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "test:staged": "npm test -- --findRelatedTests --passWithNoTests",
-    "test:ci": "npm test -- --coverage --passWithNoTests"
+    "test": "jest --passWithNoTests",
+    "test:watch": "npm test -- --watch",
+    "test:staged": "npm test -- --findRelatedTests ",
+    "test:ci": "npm test -- --coverage "
   },
   "devDependencies": {
     "@cypress/webpack-preprocessor": "^5.4.1",
