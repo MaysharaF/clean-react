@@ -9,4 +9,4 @@ export interface Authetication {
   auth(param: AuthenticationParams): Promise<AccountModel>;
 }
 
-const test;
+const test = null;
