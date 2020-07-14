@@ -1,27 +1,49 @@
-const path = require('path')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const { DefinePlugin } = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const common = require('./webpack.common')
+const merge = require('webpack-merge')
 
-module.exports = {
+module.exports = merge(common, {
   mode: 'development',
-  entry: './src/main/index.tsx',
-  output: {
-    path: path.join(__dirname, 'public/js'),
-    public: 'public.js',
+  module: {
+    rules: [
+      {
+        test: /\.ts(x?)$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+            },
+          },
+          {
+            loader: 'sass-loader',
+          },
+        ],
+      },
+    ],
   },
-  resolve: {
-    extensios: ['.ts', '.tsx', '.js'],
-    alias: {
-      '@': path.join(__dirname, 'src'),
-    },
-  },
+  devtool: 'inline-source-map',
   devServer: {
     contentBase: './public',
     writeToDisk: true,
     historyApiFallback: true,
+    port: 8080,
   },
-  externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM',
-  },
-  plugins: [new CleanWebpackPlugin()],
-}
+  plugins: [
+    new DefinePlugin({
+      'process.env.API_URL': JSON.stringify('http://fordevs.herokuapp.com/api'),
+    }),
+    new HtmlWebpackPlugin({
+      template: './template.dev.html',
+    }),
+  ],
+})
